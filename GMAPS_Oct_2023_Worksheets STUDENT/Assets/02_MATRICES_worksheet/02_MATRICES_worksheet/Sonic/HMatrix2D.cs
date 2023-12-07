@@ -12,16 +12,16 @@ public class HMatrix2D
 
     public HMatrix2D()
     {
-        // your code here
+        SetIdentity();
     }
 
     public HMatrix2D(float[,] multiArray)
     {
-        for (int y = 0; y < multiArray.GetLength(0); y++)
+        for (int y = 0; y < 3; y++)
         {
-            for (int x = 0; x < multiArray.GetLength(1); x++)
+            for (int x = 0; x < 3; x++)
             {
-                Entries[y, x] = multiArray[y, x];
+                Entries[x, y] = x == y ? 1 : 0;
             }
         }
     }
@@ -55,12 +55,16 @@ public class HMatrix2D
 
     public static HMatrix2D operator +(HMatrix2D left, HMatrix2D right)
     {
-        return new HMatrix2D(left.v1, right.v2);
+        return new HMatrix2D(left.Entries[0, 0] + right.Entries[0, 0], left.Entries[0, 1] + right.Entries[0, 1], left.Entries[0, 2] + right.Entries[0, 2],
+                             left.Entries[1, 0] + right.Entries[1, 0], left.Entries[1, 1] + right.Entries[1, 1], left.Entries[1, 2] + right.Entries[1, 2],
+                             left.Entries[2, 0] + right.Entries[2, 0], left.Entries[2, 1] + right.Entries[2, 1], left.Entries[2, 2] + right.Entries[2, 2]);
     }
 
     public static HMatrix2D operator -(HMatrix2D left, HMatrix2D right)
     {
-        return new HMatrix2D(left.v1, right.v2);
+        return new HMatrix2D(left.Entries[0, 0] - right.Entries[0, 0], left.Entries[0, 1] - right.Entries[0, 1], left.Entries[0, 2] - right.Entries[0, 2],
+                             left.Entries[1, 0] - right.Entries[1, 0], left.Entries[1, 1] - right.Entries[1, 1], left.Entries[1, 2] - right.Entries[1, 2],
+                             left.Entries[2, 0] - right.Entries[2, 0], left.Entries[2, 1] - right.Entries[2, 1], left.Entries[2, 2] - right.Entries[2, 2]);
     }
 
     public static HMatrix2D operator *(HMatrix2D left, float scalar)
@@ -126,9 +130,9 @@ public class HMatrix2D
     //the matrices are not equal. If all the pairs match, it returns true to say the matrices are equal
     public static bool operator ==(HMatrix2D left, HMatrix2D right)
     {
-        for (int i = 0; i < left.Entries.GetLength(0); i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < left.Entries.GetLength(1); j++)
+            for (int j = 0; j < 3; j++)
             {
                 if (left.Entries[i, j] != right.Entries[i, j])
                 {
@@ -136,16 +140,16 @@ public class HMatrix2D
                 }
             }
         }
-
+         
         return true;
     }
 
     //This does the opposite of above
     public static bool operator !=(HMatrix2D left, HMatrix2D right)
     {
-        for (int i = 0; i < left.Entries.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < left.Entries[i, j]; j++)
+            for (int j = 0; j < 3; j++)
             {
                 if (left.Entries[i, j] != right.Entries[i, j])
                 {
@@ -195,11 +199,11 @@ public class HMatrix2D
         //}
 
         //Checks to see if x == y, if yes, sets to 1, if not, sets to 0.
-        for (int y = 0; y < Entries.GetLength(0); y++)
+        for (int y = 0; y < 3; y++)
         {
-            for (int x = 0; x < Entries.GetLength(1); x++)
+            for (int x = 0; x < 3; x++)
             {
-                Entries[y, x] = (x == y) ? 1 : 0;
+                Entries[x, y] = (x == y) ? 1 : 0;
             }
         }
     }
